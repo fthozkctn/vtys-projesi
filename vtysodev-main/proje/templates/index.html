@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+<br>
+<h1 style = "text-align: center;">Mevcut Projeler</h1>
+<br>
+<br>
+<table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Proje Adı</th>
+        <th scope="col">Proje Başkanı</th>
+        <th scope="col">Proje Bitiş Tarihi</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for proje in projeler  %}
+      <tr>
+        <td><a href = "/projeler/{{proje.id}}">{{proje.title}}</a></td>
+        <td>{{proje.user}}</td>
+        <td>{{proje.ended_date}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock body %}
+

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% now "Y-m-d H:i:s" as current_datetime %}
+
+{% block body %}
+<div style="text-align: center;">
+    <h3>Projeler</h3>
+    <hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Başlık</th>
+                <th scope="col">Yazar</th>
+                <th scope="col">Üyeler</th>
+                <th scope="col">Başlangıç Tarihi</th>
+                <th scope="col">Bitiş Tarihi</th>
+                <th scope="col">Güncelle</th>
+                <th scope="col">Sil</th>
+                <th scope="col">Görev Oluştur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proje in projeler  %}
+            <tr>
+                <th scope="row">{{proje.id}}</th>
+                <td><a href = "/projeler/{{proje.id}}">{{proje.title}}</a></td>
+                <td>{{proje.user}}</td>
+                <td>
+                    {% for uye in proje.users.all %}
+                        {{ uye.username }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{proje.created_date}}</td>
+                <td>{{proje.ended_date}}</td>
+                <td><a href = "/projeler/update/{{proje.id}}" class ="btn btn-primary">Güncelle</a></td>
+                </td>
+                <td style= "color: white">
+                    <a href = "/projeler/delete/{{proje.id}}" class="btn btn-danger">Sil</a>
+                </td>
+                <td><a href = "/projeler/update/{{proje.id}}/create_task" class ="btn btn-info">Görev Oluştur</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'proje_ekle' %}" class="btn btn-warning">Proje Ekle</a>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">Proje Adı</th>
+          <th scope="col">Görevi</th>
+          <th scope="col">Durumu</th>
+          <th scope="col">Gecikme Süresi</th>
+          <th scope="col">Tamamlandı Olarak İşaretle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in assigned_tasks %}
+        {% if task.assignee == user %}
+        <tr>
+          <th scope="row">{{task.proje}}</th>
+          <td>{{task.description}}</td>
+          <td style = {% if task.status == 'Gecikti' %}"color:red"{% endif %}{% if task.status == 'Tamamlancak' %}"color:blue"{% endif %}{% if task.status == 'Tamamlandı' %}"color:green"{% endif %}>{{task.status}}</td>
+          {% if task.status == 'Gecikti' %}
+          <td style = "color:red">{{ task.due_date|timesince }}</td> 
+          {% else %}
+          <td></td>
+          {% endif %}
+          {% if task.status != 'Tamamlandı'  %}
+          <td><form method="post" action="{% url 'submittask' id=task.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">Tamamlandı</button>
+          </form></td>
+          {% endif %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

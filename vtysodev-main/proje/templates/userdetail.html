@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Kullanıcı Adı</th>
+        <th scope="col">Katılım Tarihi</th>
+        <th scope="col">Tamamlanan Görev Sayısı</th>
+        <th scope="col">Tamamlanamayan Görev Sayısı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{customuser.username}}</th>
+        <td>{{customuser.date_joined}}</td>
+        <td>{{completed_tasks}}</td>
+        <td>{{delayed_tasks}}</td>
+      </tr>
+    </tbody>
+  </table>
+    <br>
+    <br>
+  <table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">Proje Adı</th>
+          <th scope="col">Görevi</th>
+          <th scope="col">Durumu</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in assigned_tasks %}
+        <tr>
+          <th scope="row">{{task.proje}}</th>
+          <td>{{task.description}}</td>
+          <td style = {% if task.status == 'Gecikti' %}"color:red"{% endif %}{% if task.status == 'Tamamlancak' %}"color:blue"{% endif %}{% if task.status == 'Tamamlandı' %}"color:green"{% endif %}>{{task.status}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+   </table>
+{% endblock %}

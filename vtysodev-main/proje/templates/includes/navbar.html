@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        .navbar li {
+            font-family: 'Montserrat Alternates', sans-serif;
+        }
+    </style>
+    <a class="navbar-brand" href="/">ProjeÖdevi</a>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/projeler">Projelerim</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/gorevlerim/{{user.id}}">Görevlerim</a>
+                </li>
+            {% endif %}
+            <li class="nav-item active">
+                <a class="nav-link" href="/user/userlist">Kullanıcılar</a>
+            </li>
+        </ul>
+
+        {% if request.user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/logout">Çıkış Yap</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/userlist/{{user.id}}">{{ request.user.username }}</a>
+                </li>
+                {% if session.logged_in %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/dashboard">Kontrol Paneli</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/login">Giriş Yap</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/user/register">Kayıt Olun</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</nav>

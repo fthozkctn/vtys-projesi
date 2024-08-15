@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{%block body%}
+{% load crispy_forms_tags %}
+
+<div style="display: grid; place-items: center; height: 50vh;">
+    <h3>Proje Güncelleme</h3>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button type="submit" class="btn btn-primary">Proje'yi Güncelle</button>
+        <input type="submit" name="tamamlandi" value="Tamamlandı Olarak İşaretle" class="btn btn-success">
+    </form>
+</div>
+
+{% endblock body %}

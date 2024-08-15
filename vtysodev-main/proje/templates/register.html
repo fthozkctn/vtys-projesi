@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div style="display: grid; place-items: center; height: 50vh;">
+    <h3>Kayıt Ol</h3>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button type="submit" class="btn btn-danger">Kayıt Ol</button>
+    </form>
+</div>
+{% endblock body %}

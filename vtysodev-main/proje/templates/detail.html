@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div style="display: flex;">
+    <table class="table" style="margin-right: 20px;">
+      <thead>
+        <tr>
+            <th scope="col">Proje Adı</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Projeyi Oluşturan</th>
+            <th scope="col">Projenin Durumu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <th><a>{{ proje.title }}</a></th>
+            <td>{{ proje.content }}</td>
+            <th scope="row">{{ proje.user.username }}</th>
+            <td style="color: {% if proje.ended_date < now %}red{% else %}green{% endif %}">
+                {% if proje.ended_date < now %}
+                Yapılamadı
+                {% else %}
+                Yapılıyor
+                {% endif %}
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Kullanıcı</th>
+          <th scope="col">Görev</th>
+          <th scope="col">Görev Durumu</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in proje.tasks.all  %}
+        <tr>
+          <th scope="row">{{task.assignee}}</th>
+          <td>{{task.description}}</td>
+          <td style = {% if task.status == 'Yapılıyor' %}'color:blue'{% endif %}{% if task.status == 'Tamamlandı' %}'color:green'{% endif %}>{{task.status}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+{% endblock body %}
+  

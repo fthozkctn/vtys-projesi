@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Kullanıcı</th>
+        <th scope="col">Kullanıcı'nın Katılma Tarihi</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users  %}
+      <tr>
+        <td colspan = "1"><a href = "/userlist/{{user.id}}">{{user.username}}</a></td>
+        <th scope="row">{{user.date_joined}}</th>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock body %}
